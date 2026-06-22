@@ -5,28 +5,29 @@
 [ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/obstacles/jump_obstacle.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/obstacles/slide_obstacle.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/targets/destructible_target.tscn" id="6"]
 
 [sub_resource type="Environment" id="env"]
 background_mode = 2
 background_color = Color(0.5, 0.7, 1, 1)
 
 [sub_resource type="BoxMesh" id="floor_mesh"]
-size = Vector3(10, 0.2, 100)
+size = Vector3(10, 0.2, 220)
 
 [sub_resource type="BoxShape3D" id="floor_shape"]
-size = Vector3(10, 0.2, 100)
+size = Vector3(10, 0.2, 220)
 
 [sub_resource type="BoxMesh" id="left_wall_mesh"]
-size = Vector3(1, 3, 100)
+size = Vector3(1, 3, 220)
 
 [sub_resource type="BoxShape3D" id="left_wall_shape"]
-size = Vector3(1, 3, 100)
+size = Vector3(1, 3, 220)
 
 [sub_resource type="BoxMesh" id="right_wall_mesh"]
-size = Vector3(1, 3, 100)
+size = Vector3(1, 3, 220)
 
 [sub_resource type="BoxShape3D" id="right_wall_shape"]
-size = Vector3(1, 3, 100)
+size = Vector3(1, 3, 220)
 
 [node name="PrototypeLevel" type="Node3D" groups=["level"]]
 script = ExtResource(1)
@@ -42,6 +43,7 @@ light_energy = 1.2
 shadow_enabled = true
 
 [node name="Floor" type="StaticBody3D" parent="."]
+position = Vector3(0, 0, -80)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("floor_mesh")
@@ -50,7 +52,7 @@ mesh = SubResource("floor_mesh")
 shape = SubResource("floor_shape")
 
 [node name="LeftWall" type="StaticBody3D" parent="."]
-position = Vector3(-4.5, 1.5, 0)
+position = Vector3(-4.5, 1.5, -80)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="LeftWall"]
 mesh = SubResource("left_wall_mesh")
@@ -59,7 +61,7 @@ mesh = SubResource("left_wall_mesh")
 shape = SubResource("left_wall_shape")
 
 [node name="RightWall" type="StaticBody3D" parent="."]
-position = Vector3(4.5, 1.5, 0)
+position = Vector3(4.5, 1.5, -80)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RightWall"]
 mesh = SubResource("right_wall_mesh")
@@ -79,7 +81,22 @@ current = true
 fov = 60
 
 [node name="JumpObstacle" parent="." instance=ExtResource(4)]
-position = Vector3(0, 0.3, -10)
+position = Vector3(0, 0.3, -20)
 
 [node name="SlideObstacle" parent="." instance=ExtResource(5)]
-position = Vector3(0, 1.5, -20)
+position = Vector3(0, 1.5, -45)
+
+[node name="WeakTarget" parent="." instance=ExtResource(6)]
+position = Vector3(0, 0.6, -75)
+max_health = 1.0
+base_color = Color(0.9,0.2,0.2,1)
+
+[node name="MediumTarget" parent="." instance=ExtResource(6)]
+position = Vector3(0, 0.6, -105)
+max_health = 3.0
+base_color = Color(1,0.75,0.1,1)
+
+[node name="StrongTarget" parent="." instance=ExtResource(6)]
+position = Vector3(0, 0.6, -140)
+max_health = 6.0
+base_color = Color(0.8,0.1,0.1,1)
