@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[sub_resource type="BoxMesh" id="jump_barrier_mesh"]
+size = Vector3(10, 0.6, 1.0)
+
+[sub_resource type="BoxShape3D" id="jump_barrier_shape"]
+size = Vector3(10, 0.6, 1.0)
+
+[node name="JumpObstacle" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("jump_barrier_mesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("jump_barrier_shape")
