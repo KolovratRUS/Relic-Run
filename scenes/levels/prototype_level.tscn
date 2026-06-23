@@ -95,12 +95,25 @@ position = Vector3(0, 0.6, -90)
 max_health = 1.0
 base_color = Color(0.9,0.2,0.2,1)
 
+[node name="GatePair2" parent="." instance=ExtResource(7)]
+position = Vector3(0, 0, -110)
+[node name="LeftGate" parent="GatePair2"]
+upgrade_type = 2
+upgrade_amount = 0.0
+display_text = "DOUBLE SHOT"
+gate_color = Color(0.2, 0.8, 0.2, 1)
+[node name="RightGate" parent="GatePair2"]
+upgrade_type = 0
+upgrade_amount = 0.7
+display_text = "FIRE RATE +30%"
+gate_color = Color(0.2, 0.5, 1, 1)
+
 [node name="MediumTarget" parent="." instance=ExtResource(6)]
-position = Vector3(0, 0.6, -120)
+position = Vector3(0, 0.6, -140)
 max_health = 3.0
 base_color = Color(1,0.75,0.1,1)
 
 [node name="StrongTarget" parent="." instance=ExtResource(6)]
-position = Vector3(0, 0.6, -155)
+position = Vector3(0, 0.6, -175)
 max_health = 6.0
 base_color = Color(0.8,0.1,0.1,1)

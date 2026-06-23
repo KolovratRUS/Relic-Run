@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 const UPGRADE_FIRE_RATE: int = 0
 const UPGRADE_DAMAGE: int = 1
+const UPGRADE_DOUBLE_SHOT: int = 2
 
 ## Forward movement
 @export var forward_speed: float = 10.0
@@ -227,3 +228,5 @@ func apply_upgrade(upgrade_type: int, upgrade_amount: float) -> void:
 			shooter.apply_fire_rate_upgrade(upgrade_amount)
 		UPGRADE_DAMAGE:
 			shooter.apply_damage_upgrade(upgrade_amount)
+		UPGRADE_DOUBLE_SHOT:
+			shooter.enable_double_shot()
