@@ -1,0 +1,20 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/upgrades/upgrade_gate_pair.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/upgrades/upgrade_gate.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/upgrades/upgrade_gate.tscn" id="3"]
+
+[node name="GatePair1" type="Node3D"]
+script = ExtResource("1")
+
+[node name="LeftGate" parent="." instance=ExtResource("2")]
+upgrade_type = 0
+upgrade_amount = 0.7
+display_text = "FIRE RATE +30%"
+gate_color = Color(0.2, 0.5, 1, 1)
+
+[node name="RightGate" parent="." instance=ExtResource("3")]
+upgrade_type = 1
+upgrade_amount = 1.0
+display_text = "DAMAGE +1"
+gate_color = Color(1, 0.45, 0.05, 1)

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://scenes/obstacles/jump_obstacle.tscn" id="4"]
 [ext_resource type="PackedScene" path="res://scenes/obstacles/slide_obstacle.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://scenes/targets/destructible_target.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/upgrades/upgrade_gate_pair.tscn" id="7"]
 
 [sub_resource type="Environment" id="env"]
 background_mode = 2
@@ -86,17 +87,20 @@ position = Vector3(0, 0.3, -20)
 [node name="SlideObstacle" parent="." instance=ExtResource(5)]
 position = Vector3(0, 1.5, -45)
 
+[node name="GatePair1" parent="." instance=ExtResource(7)]
+position = Vector3(0, 0, -65)
+
 [node name="WeakTarget" parent="." instance=ExtResource(6)]
-position = Vector3(0, 0.6, -75)
+position = Vector3(0, 0.6, -90)
 max_health = 1.0
 base_color = Color(0.9,0.2,0.2,1)
 
 [node name="MediumTarget" parent="." instance=ExtResource(6)]
-position = Vector3(0, 0.6, -105)
+position = Vector3(0, 0.6, -120)
 max_health = 3.0
 base_color = Color(1,0.75,0.1,1)
 
 [node name="StrongTarget" parent="." instance=ExtResource(6)]
-position = Vector3(0, 0.6, -140)
+position = Vector3(0, 0.6, -155)
 max_health = 6.0
 base_color = Color(0.8,0.1,0.1,1)

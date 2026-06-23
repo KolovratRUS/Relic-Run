@@ -58,3 +58,7 @@ func _damage_and_destroy(other: Node) -> void:
 		obj.apply_damage(damage)
 	_alive = false
 	queue_free()
+
+
+func set_damage(value: float) -> void:
+	damage = max(0.0, value)

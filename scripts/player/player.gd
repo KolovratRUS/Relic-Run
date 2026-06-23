@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+const UPGRADE_FIRE_RATE: int = 0
+const UPGRADE_DAMAGE: int = 1
+
 ## Forward movement
 @export var forward_speed: float = 10.0
 ## Maximum horizontal speed from keyboard input
@@ -213,3 +216,14 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	global_position.x = clamp(global_position.x, -corridor_half_width, corridor_half_width)
+
+
+func apply_upgrade(upgrade_type: int, upgrade_amount: float) -> void:
+	var shooter: Node3D = $AutoShooter
+	if shooter == null:
+		return
+	match upgrade_type:
+		UPGRADE_FIRE_RATE:
+			shooter.apply_fire_rate_upgrade(upgrade_amount)
+		UPGRADE_DAMAGE:
+			shooter.apply_damage_upgrade(upgrade_amount)
