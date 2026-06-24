@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://scripts/player/player.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/combat/auto_shooter.gd" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/combat/projectile.tscn" id="3"]
+[ext_resource type="Script" path="res://scripts/player/squad_manager.gd" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/player/squad_member.tscn" id="5"]
 
 [sub_resource type="CapsuleMesh" id="player_mesh"]
 radius = 0.4
@@ -29,3 +31,9 @@ script = ExtResource("2")
 projectile_scene = ExtResource("3")
 muzzle_path = NodePath("../Muzzle")
 fire_interval = 0.4
+
+[node name="SquadManager" type="Node3D" parent="."]
+script = ExtResource("4")
+member_scene = ExtResource("5")
+starting_members = 0
+max_members = 8

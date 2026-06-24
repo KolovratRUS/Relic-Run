@@ -10,6 +10,7 @@ var defeated: bool = false
 const UPGRADE_FIRE_RATE: int = 0
 const UPGRADE_DAMAGE: int = 1
 const UPGRADE_DOUBLE_SHOT: int = 2
+const UPGRADE_RECRUIT: int = 3
 
 ## Forward movement
 @export var forward_speed: float = 10.0
@@ -259,3 +260,32 @@ func apply_upgrade(upgrade_type: int, upgrade_amount: float) -> void:
 			shooter.apply_damage_upgrade(upgrade_amount)
 		UPGRADE_DOUBLE_SHOT:
 			shooter.enable_double_shot()
+		UPGRADE_RECRUIT:
+			add_squad_members(int(round(upgrade_amount)))
+
+
+func add_squad_members(amount: int) -> void:
+	var squad: Node3D = $SquadManager
+	if squad == null:
+		return
+	if not squad.has_method("add_members"):
+		return
+	squad.add_members(amount)
+
+
+func get_squad_muzzles() -> Array[Marker3D]:
+	var squad: Node3D = $SquadManager
+	if squad == null:
+		return []
+	if not squad.has_method("get_active_muzzles"):
+		return []
+	return squad.get_active_muzzles()
+
+
+func get_squad_size() -> int:
+	var squad: Node3D = $SquadManager
+	if squad == null:
+		return 0
+	if not squad.has_method("get_member_count"):
+		return 0
+	return squad.get_member_count()
