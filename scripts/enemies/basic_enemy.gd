@@ -7,11 +7,15 @@ signal enemy_defeated(enemy: Node)
 @export var contact_damage: float = 1.0
 @export var move_toward_player: bool = true
 @export var base_color: Color = Color(0.8, 0.9, 0.2, 1)
+@export var track_player_x: bool = false
+@export var horizontal_speed: float = 2.5
+@export var horizontal_dead_zone: float = 0.1
 
 var health: float = 0.0
 var defeated: bool = false
 var _contact_area: Area3D = null
 var _fixed_y: float = 0.0
+var _player: Node3D = null
 
 
 func _ready() -> void:
@@ -20,6 +24,8 @@ func _ready() -> void:
 
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	set_process(true)
+
+	call_deferred("_find_player")
 
 	_contact_area = $ContactArea
 	if _contact_area != null:
@@ -36,6 +42,12 @@ func _ready() -> void:
 		mesh_node.set_surface_override_material(0, mat)
 
 
+func _find_player() -> void:
+	var players := get_tree().get_nodes_in_group("player")
+	if not players.is_empty():
+		_player = players[0] as Node3D
+
+
 func _process(delta: float) -> void:
 	if defeated:
 		return
@@ -45,6 +57,18 @@ func _process(delta: float) -> void:
 
 	global_position.z += move_speed * delta
 	global_position.y = _fixed_y
+
+	if track_player_x:
+		if not is_instance_valid(_player):
+			_find_player()
+		if is_instance_valid(_player):
+			var x_delta: float = _player.global_position.x - global_position.x
+			if abs(x_delta) > horizontal_dead_zone:
+				global_position.x = move_toward(
+					global_position.x,
+					_player.global_position.x,
+					horizontal_speed * delta
+				)
 
 
 func apply_damage(amount: float) -> void:
