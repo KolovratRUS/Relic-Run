@@ -1,0 +1,44 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/basic_enemy.gd" id="1"]
+
+[sub_resource type="CapsuleMesh" id="enemy_mesh"]
+radius = 0.5
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="enemy_matl"]
+albedo_color = Color(0.7, 0.2, 0.2, 1)
+
+[sub_resource type="CapsuleShape3D" id="enemy_shape"]
+radius = 0.5
+height = 1.8
+
+[sub_resource type="SphereShape3D" id="contact_shape"]
+radius = 0.9
+
+[node name="BasicEnemy" type="CharacterBody3D" groups=["enemy"]]
+script = ExtResource("1")
+max_health = 3.0
+move_speed = 2.0
+contact_damage = 1.0
+move_toward_player = true
+base_color = Color(0.7, 0.2, 0.2, 1)
+collision_layer = 5
+collision_mask = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("enemy_mesh")
+surface_material_override/0 = SubResource("enemy_matl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("enemy_shape")
+
+[node name="ContactArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 1
+monitoring = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ContactArea"]
+shape = SubResource("contact_shape")
+
+[connection signal="body_entered" from="ContactArea" to="." method="_on_contact_area_body_entered"]

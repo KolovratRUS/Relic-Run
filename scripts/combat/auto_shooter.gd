@@ -7,6 +7,7 @@ extends Node3D
 @export var double_shot_spacing: float = 0.35
 var projectile_damage: float = 1.0
 var double_shot_enabled: bool = false
+var shooting_enabled: bool = true
 
 var _cooldown: float = 0.0
 var _muzzle: Marker3D
@@ -20,6 +21,8 @@ func _process(delta: float) -> void:
 	if _muzzle == null or projectile_scene == null:
 		return
 	if fire_interval <= 0.0:
+		return
+	if not shooting_enabled:
 		return
 	_cooldown -= delta
 	if _cooldown <= 0.0:
@@ -59,3 +62,7 @@ func apply_damage_upgrade(amount: float) -> void:
 
 func enable_double_shot() -> void:
 	double_shot_enabled = true
+
+
+func set_shooting_enabled(enabled: bool) -> void:
+	shooting_enabled = enabled

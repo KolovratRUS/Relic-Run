@@ -1,5 +1,12 @@
 extends CharacterBody3D
 
+signal defeated_player
+
+## Health
+@export var max_health: float = 1.0
+var current_health: float = 0.0
+var defeated: bool = false
+
 const UPGRADE_FIRE_RATE: int = 0
 const UPGRADE_DAMAGE: int = 1
 const UPGRADE_DOUBLE_SHOT: int = 2
@@ -183,6 +190,10 @@ func _end_slide() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if defeated:
+		velocity = Vector3.ZERO
+		move_and_slide()
+		return
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
@@ -217,6 +228,24 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	global_position.x = clamp(global_position.x, -corridor_half_width, corridor_half_width)
+
+
+func _ready() -> void:
+	current_health = max_health
+
+
+func take_damage(amount: float) -> void:
+	if defeated:
+		return
+	if amount <= 0.0:
+		return
+	current_health -= amount
+	if current_health <= 0.0:
+		defeated = true
+		emit_signal("defeated_player")
+		var shooter := $AutoShooter
+		if shooter != null and shooter.has_method("set_shooting_enabled"):
+			shooter.set_shooting_enabled(false)
 
 
 func apply_upgrade(upgrade_type: int, upgrade_amount: float) -> void:

@@ -30,9 +30,9 @@ func _on_gate_selected(gate: Area3D, body: Node) -> void:
 	if _left_gate != null:
 		_left_gate.consumed = true
 		_left_gate.visible = false
-		_left_gate.monitoring = false
+		_left_gate.set_deferred("monitoring", false)
 
 	if _right_gate != null:
 		_right_gate.consumed = true
 		_right_gate.visible = false
-		_right_gate.monitoring = false
+		_right_gate.set_deferred("monitoring", false)
